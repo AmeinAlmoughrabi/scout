@@ -1,39 +1,31 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import io, { Socket } from "socket.io-client";
-import GoogleMapReact from 'google-map-react';
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
+//Import screens
+import Home from "./screens/Home";
+import Login from "./screens/Login";
+import Signup from "./screens/Signup";
+import CreateOrJoinLobby from "./screens/CreateOrJoinLobby";
+import JoinLobby from "./screens/JoinLobby";
+import Game from "./screens/Game";
+/*
+  This file is a main file for the entire frntend of the project. 
+  It imports all the screens and gives each screen a name to be addressed by.
+*/
 export default function App() {
-  const socket = io.connect("http://localhost:5000");
-
-  function joinRoom() {
-    socket.emit("join_room", { roomName: "castle" });
-  }
-
-  function updateLocation() {
-    socket.emit("update_player_location", {
-      latitude: "1000",
-      longitude: "1000",
-    });
-  }
+  const Stack = createStackNavigator();
 
   return (
-    <View style={styles.container}>
-      <Text>Yeah</Text>
-      <Button onPress={joinRoom} title="Join"></Button>
-      <Button onPress={updateLocation} title="update"></Button>
-
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="CreateOrJoinLobby" component={CreateOrJoinLobby} />
+        <Stack.Screen name="JoinLobby" component={JoinLobby} />
+        <Stack.Screen name="Game" component={Game} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
