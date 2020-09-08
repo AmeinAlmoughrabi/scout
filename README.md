@@ -1,6 +1,8 @@
 # Things to install
 
-npm install -g expo-cli
+1. npm install -g expo-cli
+2. cd into the client folder and run "npm install"
+3. cd into the server folder and run "npm install"
 
 # How to run:
 
