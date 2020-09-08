@@ -6,7 +6,7 @@
 
 # How to run:
 
-1. cd into Scout folder and run "expo start"
+1. cd into client folder and run "expo start"
 2. open a new terminal and run "npm start"
 
 server and client will now be running
