@@ -1,6 +1,6 @@
 /**
- * Response Object
- * @param {String} name if the request was succesful
+ * Player Object
+ * @param {String} socketId the socket id of the user
  */
 class Player {
   constructor(socketId) {

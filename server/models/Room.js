@@ -1,5 +1,5 @@
 /**
- * Response Object
+ * Room Object
  * @param {String} name
  */
 class Room {

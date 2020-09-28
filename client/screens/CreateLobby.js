@@ -3,12 +3,23 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button, Alert, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function JoinLobby(props) {
-  const [lobby, onChangeLobby] = React.useState("");
+export default function CreateLobby(props) {
+  const [lobby, onChangeLobby] = React.useState(makeid(5));
   const navigation = useNavigation();
 
   function goToLobby() {
     props.navigation.navigate("Lobby", { lobbyId: lobby });
+  }
+
+  function makeid(length) {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 
   return (
@@ -26,7 +37,7 @@ export default function JoinLobby(props) {
         }}
       />
 
-      <Text style={{ fontSize: 50, marginBottom: "30%" }}>Join Lobby</Text>
+      <Text style={{ fontSize: 50, marginBottom: "30%" }}>Create Lobby</Text>
 
       <View
         style={{
@@ -35,15 +46,11 @@ export default function JoinLobby(props) {
           borderRadius: 10,
           elevation: 1,
           marginBottom: 20,
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          onChangeText={(text) => onChangeLobby(text)}
-          keyboardType="default"
-          placeholder="lobby code"
-          value={lobby}
-        />
+        <Text style={{ fontSize: 20 }}>{lobby}</Text>
       </View>
 
       <View

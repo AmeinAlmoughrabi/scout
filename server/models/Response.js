@@ -1,5 +1,6 @@
 /**
  * Response Object
+ * Standard Response for an HTTP api request
  * @param {Boolean} isSuccess if the request was succesful
  * @param {String} errorName the kind of error the server had
  * @param {Object} payload the dta to be returned

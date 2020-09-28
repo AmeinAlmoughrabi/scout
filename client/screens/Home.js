@@ -1,40 +1,38 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import io, { Socket } from "socket.io-client";
-
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import MaterialButton from "@material-ui/core/Button";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
 
 export default function Home(props) {
-  //const socket = io.connect("http://localhost:5000");
+  function HelloFunction() {
+    props.navigation.navigate("Login");
+  }
 
   return (
-    <View>
-      <Grid container direction="column" justify="center" alignItems="center">
-        <Grid item>
-          <Typography variant="h5" gutterBottom>
-            Welcome to Scout
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" gutterBottom>
-            Start playing now
-          </Typography>
-        </Grid>
-        <Grid item>
-          <MaterialButton onClick={() => props.navigation.navigate("Signup")}>
-            Sign up
-          </MaterialButton>
-        </Grid>
-        <Grid item>
-          <MaterialButton onClick={() => props.navigation.navigate("Login")}>
-            Log in
-          </MaterialButton>
-        </Grid>
-      </Grid>
-      <StatusBar style="auto" />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text style={{ fontSize: 50, marginBottom: "60%" }}>Project Scout</Text>
+
+      <View
+        style={{ marginTop: 15 }}
+        style={{
+          backgroundColor: "#C70039",
+          height: "5%",
+          width: "55%",
+          borderRadius: 10,
+          elevation: 1,
+        }}
+      >
+        <Button
+          onPress={HelloFunction}
+          title="Enter"
+          color="rgb(255,255,255)"
+        ></Button>
+      </View>
     </View>
   );
 }

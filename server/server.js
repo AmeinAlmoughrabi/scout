@@ -1,12 +1,15 @@
 var app = require("express")();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
-
+const connectDB = require("./config/db");
 const RoomManagement = require("./src/RoomManagement");
+const config = require("./config.json");
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
+run();
+
+async function run() {
+  await connectDB();
+}
 
 io.on("connection", (socket) => {
   console.log("a user connected");
@@ -27,6 +30,12 @@ io.on("connection", (socket) => {
   });
 });
 
-http.listen(5000, () => {
-  console.log("listening on *:5000");
+http.listen(config.port, () => {
+  console.log("listening on *:" + config.port);
 });
+
+//======================================================================================================
+//											Api Endpoints											   |
+//======================================================================================================
+const userRouter = require("./routes/user");
+expressApp.use("/user", userRouter);
