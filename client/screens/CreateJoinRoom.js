@@ -16,10 +16,13 @@ export default function CreateJoinRoom(props) {
     props.navigation.navigate("JoinLobby");
   }
 
-  useEffect(async () => {
-    ///console.log(buildPlayerList());
-    setName("Hello");
-  });
+  async function getName() {
+    let name = await AsyncStorage.getItem("@Store:name");
+    setName(name);
+  }
+  useEffect(() => {
+    getName();
+  }, []);
 
   return (
     <View

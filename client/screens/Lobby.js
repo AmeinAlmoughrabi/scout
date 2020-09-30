@@ -11,12 +11,14 @@ import {
   SectionList,
 } from "react-native";
 import { AsyncStorage } from "react-native";
+import io from "socket.io-client";
 
 const data = [{ name: "test1" }, { name: "test2" }];
 
+const socket = io("localhost:8080");
 export default function Lobby(props) {
   const { lobbyId } = props.route.params;
-  const { name } = props.route.params;
+  const [name, setName] = useState("Name");
   const [players, setPlayerList] = useState(data);
 
   function buildPlayerList() {
@@ -31,15 +33,31 @@ export default function Lobby(props) {
   }
 
   useEffect(() => {
-    ///console.log(buildPlayerList());
-    // setPlayerList(buildPlayerList());
-  });
+    async function getName() {
+      let my_name = await AsyncStorage.getItem("@Store:name");
+
+      let myPlayer = {
+        name: my_name,
+      };
+      let currentPlayers = players;
+      currentPlayers.push(myPlayer);
+
+      setPlayerList(currentPlayers);
+    }
+    getName();
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text style={{ marginTop: 20, fontSize: 50, marginBottom: 20 }}>
         Lobby: {lobbyId}
       </Text>
+
+      {players.map((player) => (
+        <Text style={{ marginTop: 20, fontSize: 50, marginBottom: 20 }}>
+          {player.name}
+        </Text>
+      ))}
     </View>
   );
 }

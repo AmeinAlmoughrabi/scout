@@ -9,17 +9,10 @@ export default function Login(props) {
 
   async function loginHandler() {
     console.log("login clicked!");
-    storeName(email).then(() => {
-      props.navigation.navigate("CreateJoinRoom");
-    });
-  }
 
-  async function storeName(email) {
-    try {
-      await AsyncStorage.setItem("NAME", email);
-    } catch (error) {
-      console.log(error);
-    }
+    await AsyncStorage.setItem("@Store:name", email);
+
+    props.navigation.navigate("CreateJoinRoom");
   }
 
   return (

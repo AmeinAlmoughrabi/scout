@@ -1,7 +1,9 @@
-var app = require("express")();
-var http = require("http").createServer(app);
+const express = require("express");
+const cors = require("cors");
+var http = require("http");
 var io = require("socket.io")(http);
 const dotenv = require("dotenv").config();
+const colors = require("colors");
 
 const connectDB = require("./config/db");
 const RoomManagement = require("./src/RoomManagement");
@@ -35,7 +37,6 @@ io.on("connection", (socket) => {
 //======================================================================================================
 //										Configure Express server										   |
 //======================================================================================================
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -50,9 +51,11 @@ http.createServer(app).listen(PORT, function () {
 //======================================================================================================
 
 app.get("/", function (req, res) {
-  res.send("Successfully hit the room managegment api!");
+  res.send("Successfully hit the scout api!");
   console.log("yeah");
 });
 
-const userRouter = require("./routes/user");
-expressApp.use("/user", userRouter);
+app.post("/femi", function (req, res) {
+  res.send("Successfully hit the scout api!");
+  console.log("yeah");
+});
