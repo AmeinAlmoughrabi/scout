@@ -55,7 +55,7 @@ app.get("/", function (req, res) {
   console.log("yeah");
 });
 
-app.post("/femi", function (req, res) {
+app.get("/femi", function (req, res) {
   res.send("Successfully hit the scout api!");
   console.log("yeah");
 });

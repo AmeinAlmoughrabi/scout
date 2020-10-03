@@ -15,7 +15,8 @@ import io from "socket.io-client";
 
 const data = [{ name: "test1" }, { name: "test2" }];
 
-const socket = io("localhost:8080");
+const socket = io("https://castlescout.azurewebsites.net");
+
 export default function Lobby(props) {
   const { lobbyId } = props.route.params;
   const [name, setName] = useState("Name");
