@@ -58,3 +58,5 @@ app.get("/femi", function (req, res) {
   res.send("Successfully hit the scout api!");
   console.log("yeah");
 });
+
+console.log("starting up");
