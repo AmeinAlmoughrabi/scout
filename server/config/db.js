@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const colors = require("colors");
-const config = require("../config.json");
 
 async function connectDB() {
   try {
-    const conn = await mongoose.connect(config.mongo_url, {
+    const conn = await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,

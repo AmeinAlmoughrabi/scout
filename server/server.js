@@ -7,7 +7,6 @@ const colors = require("colors");
 
 const connectDB = require("./config/db");
 const RoomManagement = require("./src/RoomManagement");
-const config = require("./config.json");
 
 run();
 
