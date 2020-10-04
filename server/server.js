@@ -61,6 +61,8 @@ io.on("connection", (socket) => {
     RoomManagement.updatePlayerLocation(socket.id, payload);
   });
 
+  console.log("YEAH");
+
   socket.on("disconnect", () => {
     RoomManagement.leaveRoom(socket.id);
     console.log("user disconnected");
