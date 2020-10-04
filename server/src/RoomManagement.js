@@ -4,21 +4,22 @@ const { Player } = require("../models/Player");
 
 var rooms = new Map();
 
-function createOrJoinRoom(roomName, socketId) {
+function createOrJoinRoom(roomName, name, socketId) {
   // if the player does not exists in a room
-  var newPlayer = new Player(socketId);
+  var newPlayer = new Player(socketId, name);
   if (rooms.has(roomName)) {
     //join room
     rooms.get(roomName).players.push(newPlayer);
-    console.log("joined the room: " + roomName);
+    console.log(name + " joined the room: " + roomName);
   } else {
     //create room
     var newRoom = new Room(roomName);
     newPlayer.isHost = true;
     newRoom.players.push(newPlayer);
     rooms.set(roomName, newRoom);
-    console.log("created the room: " + roomName);
+    console.log(name + " created the room: " + roomName);
   }
+
   console.log(rooms);
 }
 
@@ -78,4 +79,5 @@ module.exports = {
   getPlayersInRoom,
   leaveRoom,
   updatePlayerLocation,
+  rooms,
 };

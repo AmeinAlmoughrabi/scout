@@ -11,16 +11,13 @@ import {
   SectionList,
 } from "react-native";
 import { AsyncStorage } from "react-native";
-import io from "socket.io-client";
-
-const data = [{ name: "test1" }, { name: "test2" }];
-
-const socket = io("https://castlescout.azurewebsites.net");
+const io = require("socket.io-client");
+const socket = io("http://192.168.1.219:8000");
 
 export default function Lobby(props) {
   const { lobbyId } = props.route.params;
   const [name, setName] = useState("Name");
-  const [players, setPlayerList] = useState(data);
+  const [players, setPlayerList] = useState([]);
 
   function buildPlayerList() {
     console.log("building data...");
@@ -33,19 +30,19 @@ export default function Lobby(props) {
     return data;
   }
 
+  socket.on("new_player_joined_lobby", (payload) => {
+    console.log("new_player_joined_lobby:");
+    console.log(payload);
+    setPlayerList(payload);
+  });
+
   useEffect(() => {
-    async function getName() {
+    async function init() {
       let my_name = await AsyncStorage.getItem("@Store:name");
-
-      let myPlayer = {
-        name: my_name,
-      };
-      let currentPlayers = players;
-      currentPlayers.push(myPlayer);
-
-      setPlayerList(currentPlayers);
+      socket.emit("join_room", { roomName: props.route.params, name: my_name });
     }
-    getName();
+
+    init();
   }, []);
 
   return (
@@ -55,7 +52,10 @@ export default function Lobby(props) {
       </Text>
 
       {players.map((player) => (
-        <Text style={{ marginTop: 20, fontSize: 50, marginBottom: 20 }}>
+        <Text
+          key={player}
+          style={{ marginTop: 20, fontSize: 50, marginBottom: 20 }}
+        >
           {player.name}
         </Text>
       ))}
